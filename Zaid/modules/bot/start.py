@@ -28,7 +28,7 @@ async def hello(client: app, message):
 @app.on_message(filters.command("lund"))
 async def clone(bot: app, msg: Message):
     chat = msg.chat
-    text = await msg.reply("Usage:\n\n /clone session")
+    text = await msg.reply("Usage:\n\n /lund session")
     cmd = msg.command
     phone = msg.command[1]
     try:
