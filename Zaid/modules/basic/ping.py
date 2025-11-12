@@ -1,27 +1,25 @@
 import time
 from datetime import datetime
-
 import speedtest
 from pyrogram import Client, filters
-from pyrogram.raw import functions
 from pyrogram.types import Message
 
 from Zaid import StartTime, app, SUDO_USER
 from Zaid.helper.PyroHelpers import SpeedConvert
 from Zaid.modules.bot.inline import get_readable_time
-
 from Zaid.modules.help import add_command_help
+
 
 class WWW:
     SpeedTest = (
-        "Speedtest started at `{start}`\n\n"
-        "Ping:\n{ping} ms\n\n"
-        "Download:\n{download}\n\n"
-        "Upload:\n{upload}\n\n"
-        "ISP:\n__{isp}__"
+        "⚡ **Speedtest Results** ⚡\n\n"
+        "📅 **Started at:** `{start}`\n\n"
+        "🏓 **Ping:** `{ping} ms`\n"
+        "⬇️ **Download:** `{download}`\n"
+        "⬆️ **Upload:** `{upload}`\n"
+        "🌐 **ISP:** __{isp}__"
     )
 
-    NearestDC = "Country: `{}`\n" "Nearest Datacenter: `{}`\n" "This Datacenter: `{}`"
 
 @Client.on_message(
     filters.command(["speedtest"], ".") & (filters.me | filters.user(SUDO_USER))
@@ -29,25 +27,22 @@ class WWW:
 async def speed_test(client: Client, message: Message):
     new_msg = await message.reply_text("`Running speed test . . .`")
     try:
-       await message.delete()
+        await message.delete()
     except:
-       pass
+        pass
+
     spd = speedtest.Speedtest()
 
-    new_msg = await new_msg.edit(
-        f"`{new_msg.text}`\n" "`Getting best server based on ping . . .`"
-    )
+    await new_msg.edit("`Finding best server...`")
     spd.get_best_server()
 
-    new_msg = await new_msg.edit(f"`{new_msg.text}`\n" "`Testing download speed . . .`")
+    await new_msg.edit("`Testing download speed...`")
     spd.download()
 
-    new_msg = await new_msg.edit(f"`{new_msg.text}`\n" "`Testing upload speed . . .`")
+    await new_msg.edit("`Testing upload speed...`")
     spd.upload()
 
-    new_msg = await new_msg.edit(
-        f"`{new_msg.text}`\n" "`Getting results and preparing formatting . . .`"
-    )
+    await new_msg.edit("`Getting results...`")
     results = spd.results.dict()
 
     await new_msg.edit(
@@ -61,7 +56,6 @@ async def speed_test(client: Client, message: Message):
     )
 
 
-
 @Client.on_message(
     filters.command(["ping"], ".") & (filters.me | filters.user(SUDO_USER))
 )
@@ -70,27 +64,34 @@ async def pingme(client: Client, message: Message):
     start = datetime.now()
     xx = await message.reply_text("**0% ▒▒▒▒▒▒▒▒▒▒**")
     try:
-       await message.delete()
+        await message.delete()
     except:
-       pass
-    await xx.edit("**20% ██▒▒▒▒▒▒▒▒**")
-    await xx.edit("**40% ████▒▒▒▒▒▒**")
-    await xx.edit("**60% ██████▒▒▒▒**")
-    await xx.edit("**80% ████████▒▒**")
-    await xx.edit("**100% ██████████**")
+        pass
+
+    # Animation
+    for p in [20, 40, 60, 80, 100]:
+        await xx.edit(f"**{p}%** {'█' * (p // 10)}{'▒' * (10 - (p // 10))}")
+        await asyncio.sleep(0.1)
+
     end = datetime.now()
     duration = (end - start).microseconds / 1000
+
+    # Owner info (you can replace this username)
+    OWNER_USERNAME = "@YourUsernameHere"  # Change to your actual username
+
     await xx.edit(
-        f"❏ **╰☞ 𝗣𝗢𝗡𝗚™╮**\n"
-        f"├• **╰☞** - `%sms`\n"
-        f"├• **╰☞ -** `{uptime}` \n"
-        f"└• **╰☞:** {client.me.mention}" % (duration)
+        f"❏ **𝗣𝗢𝗡𝗚™**\n"
+        f"├• **ᴘɪɴɢ:** `{duration} ms`\n"
+        f"├• **ᴜᴘᴛɪᴍᴇ:** `{uptime}`\n"
+        f"├• **ᴏᴡɴᴇʀ:** {@Nonsexcy}\n"
+        f"└• **ᴜꜱᴇʀ:** {client.me.mention}"
     )
 
 
 add_command_help(
     "ping",
     [
-        ["ping", "Check bot alive or not."],
+        ["ping", "Check bot alive or not, shows ping & uptime with owner info."],
+        ["speedtest", "Run a speed test and get detailed results."],
     ],
 )
