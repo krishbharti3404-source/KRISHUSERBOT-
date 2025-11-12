@@ -1,3 +1,4 @@
+from pyrogram import Client, filters
 # 💞 Romantic Animated Emoji Commands
 @Client.on_message(filters.command("love", ".") & filters.me)
 async def love_animation(bot: Client, message: Message):
