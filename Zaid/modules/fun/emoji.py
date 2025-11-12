@@ -4,126 +4,81 @@ import asyncio
 
 
 async def safe_edit(message: Message, text: str):
-    """Safely edit message (avoid MESSAGE_NOT_MODIFIED error)"""
-    if message.text != text:
-        await message.edit_text(text)
+    """Safely edits a message, skipping if same content."""
+    try:
+        if message.text != text:
+            await message.edit_text(text)
+    except Exception:
+        pass
 
 
-# ❤️ LOVE
 @Client.on_message(filters.command("love", ".") & filters.me)
 async def love_animation(client: Client, message: Message):
-    emojis = ["❤️", "💞", "💓", "💗", "💖", "💘", "💕", "💝", "💟", "❤️‍🔥"]
-    for e in emojis:
-        await safe_edit(message, e)
+    animations = ["❤️", "💞", "💓", "💗", "💖", "💘", "💕", "💝", "💟", "❤️‍🔥"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "I ❤️ YOU 😘"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "I ❤️ YOU 😘")
 
 
-# 💔 MISS YOU
 @Client.on_message(filters.command("missyou", ".") & filters.me)
 async def missyou_animation(client: Client, message: Message):
-    emojis = ["🥺", "😔", "💔", "😞", "😢", "😭", "💭", "❤️‍🩹"]
-    for e in emojis:
-        await safe_edit(message, e)
+    animations = ["😔", "🥺", "💔", "😭", "💭", "🦋", "✨", "😞", "💌", "🤍"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "I MISS YOU 💔"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "I MISS YOU 💔😔")
 
 
-# 😄 HAPPY
 @Client.on_message(filters.command("happy", ".") & filters.me)
 async def happy_animation(client: Client, message: Message):
-    emojis = ["😀", "😃", "😄", "😁", "😆", "😊", "🥰", "🤩"]
-    for e in emojis:
-        await safe_edit(message, e)
+    animations = ["😁", "😄", "😆", "😃", "😊", "😇", "🤗", "🥰", "✨", "💫"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "I’M SO HAPPY 😄💫"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "KEEP SMILING 😄💛")
 
 
-# 😢 SAD
 @Client.on_message(filters.command("sad", ".") & filters.me)
 async def sad_animation(client: Client, message: Message):
-    emojis = ["😔", "😢", "😭", "💔", "😞", "🥺", "💧"]
-    for e in emojis:
-        await safe_edit(message, e)
+    animations = ["😢", "😭", "🥺", "💔", "😞", "😣", "😔", "😫", "😩", "💭"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "FEELING SO SAD 💔"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "I'M JUST SAD 😢")
 
 
-# 🦋 BUTTERFLY
 @Client.on_message(filters.command("butterfly", ".") & filters.me)
 async def butterfly_animation(client: Client, message: Message):
-    emojis = ["🦋", "🌸", "💐", "🌷", "🌼", "🦋", "💮"]
-    for e in emojis:
-        await safe_edit(message, e)
+    animations = ["🦋", "🌸", "💐", "🌷", "🌼", "🌻", "🌺", "🍃", "✨", "💫"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "FLY HIGH BEAUTIFUL 🦋💖"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "FLY HIGH 🦋💖")
 
 
-# ✨ SPARKLE
 @Client.on_message(filters.command("sparkle", ".") & filters.me)
 async def sparkle_animation(client: Client, message: Message):
-    emojis = ["✨", "💫", "🌟", "⭐", "🌠", "🌌", "💖"]
-    for e in emojis:
-        await safe_edit(message, e)
+    animations = ["✨", "💫", "🌟", "⚡", "🌠", "🌈", "💥", "🔥", "🌌", "⭐"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "YOU SHINE LIKE STARS ✨🌟"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "SHINE BRIGHT ✨💫")
 
 
-# 🔥 FIRE
-@Client.on_message(filters.command("fire", ".") & filters.me)
-async def fire_animation(client: Client, message: Message):
-    emojis = ["🔥", "⚡", "💥", "🔥", "💣", "🔥"]
-    for e in emojis:
-        await safe_edit(message, e)
+@Client.on_message(filters.command("heart", ".") & filters.me)
+async def heart_animation(client: Client, message: Message):
+    animations = ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💖"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "🔥 FIRE MODE ON 🔥"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "HEARTS EVERYWHERE 💖")
 
 
-# 🌟 STAR
-@Client.on_message(filters.command("star", ".") & filters.me)
-async def star_animation(client: Client, message: Message):
-    emojis = ["⭐", "🌟", "💫", "✨", "🌠", "🌌"]
-    for e in emojis:
-        await safe_edit(message, e)
+@Client.on_message(filters.command("dream", ".") & filters.me)
+async def dream_animation(client: Client, message: Message):
+    animations = ["💭", "🌙", "⭐", "✨", "🌌", "🌠", "🌜", "🌛", "💫", "🌃"]
+    for emoji in animations:
+        await safe_edit(message, emoji)
         await asyncio.sleep(0.3)
-    text = "KEEP SHINING 🌟💫"
-    display = ""
-    for ch in text:
-        display += ch
-        await safe_edit(message, display)
-        await asyncio.sleep(0.2)
+    await safe_edit(message, "DREAM BIG 🌙💭")
