@@ -1,154 +1,71 @@
 from pyrogram import Client, filters
-# 💞 Romantic Animated Emoji Commands
+from pyrogram.types import Message
+import asyncio
+
+# LOVE ANIMATION
 @Client.on_message(filters.command("love", ".") & filters.me)
-async def love_animation(bot: Client, message: Message):
-    texts = [
-        "I 💖",
-        "I 💖 Y",
-        "I 💖 YO",
-        "I 💖 YOU",
-        "I 💖 YOU 💫",
-        "I 💖 YOU 💞",
-        "I 💖 YOU 💖",
-        "I 💖 YOU FOREVER 💞",
-    ]
-    try:
-        for t in texts:
-            await message.edit(t)
-            await asyncio.sleep(0.4)
-        for _ in range(6):
-            await message.edit("💞💓💗💖💘💝💞💓💗💖💘💝")
-            await asyncio.sleep(0.3)
-    except Exception:
-        await message.delete()
+async def love_animation(client: Client, message: Message):
+    animations = ["❤️", "💞", "💓", "💗", "💖", "💘", "💕", "💝", "💟", "❤️‍🔥"]
+    for emoji in animations:
+        await message.edit_text(emoji)
+        await asyncio.sleep(0.3)
+    await message.edit_text("I ❤️ YOU 😘")
 
+# HEART ANIMATION
+@Client.on_message(filters.command("heart", ".") & filters.me)
+async def heart_animation(client: Client, message: Message):
+    hearts = ["💓", "💗", "💖", "💘", "💝", "💞"]
+    for h in hearts:
+        await message.edit_text(h)
+        await asyncio.sleep(0.3)
 
-@Client.on_message(filters.command("sparkheart", ".") & filters.me)
-async def sparkheart(bot: Client, message: Message):
-    seq = [
-        "❤️‍🔥",
-        "💖",
-        "💞",
-        "💓",
-        "💘 Burning Love ❤️‍🔥",
-        "💖❤️‍🔥💞💘",
-        "🔥 LOVE ON FIRE 🔥",
-    ]
-    try:
-        for s in seq:
-            await message.edit(s)
-            await asyncio.sleep(0.4)
-    except Exception:
-        await message.delete()
+# MOON ANIMATION
+@Client.on_message(filters.command("moon", ".") & filters.me)
+async def moon_animation(client: Client, message: Message):
+    moons = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"]
+    for m in moons:
+        await message.edit_text(m)
+        await asyncio.sleep(0.3)
 
+# SPARKLE
+@Client.on_message(filters.command("sparkle", ".") & filters.me)
+async def sparkle_animation(client: Client, message: Message):
+    sparkles = ["✨", "💫", "🌟", "⭐", "🌠"]
+    for s in sparkles:
+        await message.edit_text(s)
+        await asyncio.sleep(0.3)
 
-@Client.on_message(filters.command("brokenheart", ".") & filters.me)
-async def brokenheart(bot: Client, message: Message):
-    seq = [
-        "💔",
-        "💔💔",
-        "💔 Broken 💔",
-        "💔 Heart 💔",
-        "❤️‍🩹 Healing ❤️‍🩹",
-        "❤️‍🩹❤️‍🩹❤️‍🩹",
-        "❤️ Healed ❤️",
-    ]
-    try:
-        for s in seq:
-            await message.edit(s)
-            await asyncio.sleep(0.6)
-    except Exception:
-        await message.delete()
+# FIRE
+@Client.on_message(filters.command("fire", ".") & filters.me)
+async def fire_animation(client: Client, message: Message):
+    flames = ["🔥", "⚡", "💥", "🔥", "💣", "🔥"]
+    for f in flames:
+        await message.edit_text(f)
+        await asyncio.sleep(0.3)
+    await message.edit_text("🔥 FIRE MODE ON 🔥")
 
+# THUNDER
+@Client.on_message(filters.command("thunder", ".") & filters.me)
+async def thunder_animation(client: Client, message: Message):
+    bolts = ["🌩️", "⚡", "🌩️⚡", "⛈️", "⚡⚡"]
+    for b in bolts:
+        await message.edit_text(b)
+        await asyncio.sleep(0.3)
+    await message.edit_text("⚡ THUNDER STRIKE ⚡")
 
-@Client.on_message(filters.command("beatingheart", ".") & filters.me)
-async def beatingheart(bot: Client, message: Message):
-    seq = [
-        "💓",
-        "💗",
-        "💖",
-        "💞",
-        "💓 Beating...",
-        "💗💖💗💖",
-        "💓💓💓💓💓",
-        "💖💖💖💖💖",
-    ]
-    try:
-        for s in seq:
-            await message.edit(s)
-            await asyncio.sleep(0.3)
-    except Exception:
-        await message.delete()
+# STAR
+@Client.on_message(filters.command("star", ".") & filters.me)
+async def star_animation(client: Client, message: Message):
+    stars = ["⭐", "🌟", "💫", "✨", "🌠", "🌌"]
+    for s in stars:
+        await message.edit_text(s)
+        await asyncio.sleep(0.3)
 
-
-@Client.on_message(filters.command("rainbowheart", ".") & filters.me)
-async def rainbowheart(bot: Client, message: Message):
-    seq = [
-        "❤️🧡💛💚💙💜",
-        "🧡💛💚💙💜❤️",
-        "💛💚💙💜❤️🧡",
-        "💚💙💜❤️🧡💛",
-        "💙💜❤️🧡💛💚",
-        "💜❤️🧡💛💚💙",
-        "🌈 Love in Colors 🌈",
-    ]
-    try:
-        for s in seq:
-            await message.edit(s)
-            await asyncio.sleep(0.4)
-    except Exception:
-        await message.delete()
-
-
-@Client.on_message(filters.command("fireheart", ".") & filters.me)
-async def fireheart(bot: Client, message: Message):
-    seq = [
-        "🔥❤️🔥",
-        "❤️‍🔥🔥❤️‍🔥",
-        "🔥 Burning Heart ❤️‍🔥",
-        "🔥❤️🔥❤️🔥❤️🔥",
-        "❤️‍🔥 I’m on Fire ❤️‍🔥",
-    ]
-    try:
-        for s in seq:
-            await message.edit(s)
-            await asyncio.sleep(0.4)
-    except Exception:
-        await message.delete()
-
-
-@Client.on_message(filters.command("kiss", ".") & filters.me)
-async def kiss(bot: Client, message: Message):
-    seq = [
-        "😘",
-        "😚",
-        "😙",
-        "💋",
-        "💋 Muah 💋",
-        "😘💋😘💋😘",
-        "💞 Kiss Sent 💞",
-    ]
-    try:
-        for s in seq:
-            await message.edit(s)
-            await asyncio.sleep(0.5)
-    except Exception:
-        await message.delete()
-
-
-@Client.on_message(filters.command("missyou", ".") & filters.me)
-async def missyou(bot: Client, message: Message):
-    seq = [
-        "😔",
-        "🥺",
-        "💭 Thinking of You 💭",
-        "💌 I Miss You 💌",
-        "💞💭💞💭💞",
-        "💔 Come Back Soon 💔",
-    ]
-    try:
-        for s in seq:
-            await message.edit(s)
-            await asyncio.sleep(0.5)
-    except Exception:
-        await message.delete()
+# FLOWER
+@Client.on_message(filters.command("flower", ".") & filters.me)
+async def flower_animation(client: Client, message: Message):
+    flowers = ["🌹", "🌸", "🌷", "🌼", "🌻", "💐"]
+    for f in flowers:
+        await message.edit_text(f)
+        await asyncio.sleep(0.3)
+    await message.edit_text("🌸 Beautiful like you 🌸")
