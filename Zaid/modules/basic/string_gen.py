@@ -1,13 +1,11 @@
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from KRISHUSERBOT import app  # <-- change this according to your bot's main file
+from Zaid import app   # <-- FIXED! your bot package name is Zaid
 
-API_ID = 123456   # <-- apna api id daalna
-API_HASH = "your_api_hash"  # <-- apna api hash daalna
+API_ID = 123456
+API_HASH = "your_api_hash"
 
-
-# STEP 1 - PHONE NUMBER INPUT
 @app.on_message(filters.command("genstring") & filters.private)
 async def gen_string_start(bot, message: Message):
     await message.reply("📲 **Apna Phone Number bhejo:**\nFormat: +91xxxxxxxxxx")
@@ -26,29 +24,24 @@ async def gen_string_start(bot, message: Message):
 
     try:
         sent = await client.send_code(phone)
-        await message.reply("📩 **OTP aa gaya hoga!**\n\n**OTP bhejo:**\nFormat: `12345`")
+        await message.reply("📩 **OTP aa gaya!**\n\nOTP bhejo:")
     except Exception as e:
         await message.reply(f"❌ Error: `{e}`")
         return
 
-    # STEP 2 - OTP INPUT
     otp = await bot.listen(message.chat.id, timeout=60)
-    otp_code = otp.text.replace(" ", "")
+    code = otp.text.replace(" ", "")
 
     try:
-        await client.sign_in(phone, sent.phone_code_hash, otp_code)
+        await client.sign_in(phone, sent.phone_code_hash, code)
     except Exception as e:
         await message.reply(f"❌ Error (OTP): `{e}`")
         return
 
-    # STEP 3 - STRING EXPORT
     try:
         string = await client.export_session_string()
-        await message.reply(
-            "**✅ STRING SESSION GENERATED SUCCESSFULLY!**\n\n"
-            f"```\n{string}\n```"
-        )
+        await message.reply(f"**✅ STRING SESSION:**\n```\n{string}\n```")
     except Exception as e:
-        await message.reply(f"❌ Error (generate): `{e}`")
+        await message.reply(f"❌ Error: `{e}`")
 
     await client.disconnect()
